@@ -20,16 +20,22 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
       - name: Cache the Maven packages to speed up build
         uses: actions/cache@v1
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
       - name: Build & test with Maven
         run: mvn -B package --file pom.xml
-      - run: mkdir staging && cp target/*.jar staging
-      - uses: actions/upload-artifact@v3
+
+      - name: Copy plugin jars
+        run: mkdir staging && cp target/*.jar staging
+
+      - name: Upload plugin artifacts
+        uses: actions/upload-artifact@v3
         with:
           name: plugin-jars
           path: staging
@@ -38,16 +44,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: create a new release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: false
+        run: echo "create new release using GitHub APIs"
