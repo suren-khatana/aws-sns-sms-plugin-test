@@ -45,9 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_and_test
     permissions:
-      contents: 'read'
-      id-token: 'write'
-      issues: 'write'
+      contents: 'write'
     steps:
       - name: create a new release
         id: create_release
