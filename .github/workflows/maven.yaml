@@ -24,8 +24,6 @@ jobs:
 
       - name: Cache the Maven packages to speed up build
         uses: actions/cache@v1
-        runs:
-          using: 'node16'
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
