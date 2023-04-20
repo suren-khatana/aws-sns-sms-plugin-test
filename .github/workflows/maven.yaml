@@ -51,7 +51,7 @@ jobs:
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
         with:
-          github-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: create a new release
         id: create_release
         uses: actions/create-release@v1
