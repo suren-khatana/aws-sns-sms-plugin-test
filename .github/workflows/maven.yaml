@@ -47,11 +47,15 @@ jobs:
     permissions:
       contents: 'write'
     steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
       - name: Conventional Changelog Action
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: create a new release
         id: create_release
         uses: actions/create-release@v1
