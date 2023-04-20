@@ -41,23 +41,13 @@ jobs:
           name: plugin-jars
           path: staging
 
-  changelog:
+  create_release:
     runs-on: ubuntu-latest
     needs: build_and_test
     permissions: write-all
 
     steps:
-      # Create a temporary, uniquely named branch to push release info to
-      - name: create temporary branch
-        uses: peterjgrainger/action-create-branch@v2.3.0
-        id: create-branch
-        with:
-          branch: 'release-from-${{ github.sha }}'
-          sha: '${{ github.sha }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # check out the repository afterwards
+      # check out the repository
       - uses: actions/checkout@v3
 
       # create release info and push it upstream
