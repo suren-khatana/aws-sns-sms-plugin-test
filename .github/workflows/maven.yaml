@@ -60,10 +60,6 @@ jobs:
       # check out the repository afterwards
       - uses: actions/checkout@v3
 
-      # fetch branches and switch to the temporary branch
-      - name: switch to new branch
-        run: git fetch --all && git checkout --track origin/release-from-${{ github.sha }}
-
       # create release info and push it upstream
       - name: conventional Changelog Action
         id: changelog
