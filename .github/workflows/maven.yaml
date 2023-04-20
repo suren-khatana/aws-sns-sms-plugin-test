@@ -1,5 +1,5 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-name: Build Curity Plugin with Maven
+name: Build Curity Plugin
 
 on:
   push:
