@@ -43,6 +43,10 @@ jobs:
 
   changelog:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
 
     steps:
       # Create a temporary, uniquely named branch to push release info to
