@@ -47,7 +47,7 @@ public final class AwsSnsSmsSender implements SmsSender
     @Override
     public boolean sendSms(String toNumber, String msg)
     {
-        _maskedLogger.trace("Sending SMS to phone number = {}", toNumber);
+        _maskedLogger.trace("Sending SMS to number = {}", toNumber);
         try
         {
             PublishRequest publishRequest = PublishRequest.builder().message(msg).phoneNumber(toNumber).build();
