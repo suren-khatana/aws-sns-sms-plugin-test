@@ -50,15 +50,13 @@ jobs:
       # check out the repository
       - uses: actions/checkout@v3
 
-      # create release info and push it upstream
-      - name: conventional Changelog Action
+      - name: conventional changelog action
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3.7.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # release info is now in main so we can continue as before
-      - name: create release with last commit
+      - name: create release
         uses: actions/create-release@v1
         if: steps.changelog.outputs.skipped == 'false'
         env:
