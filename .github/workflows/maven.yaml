@@ -49,31 +49,23 @@ jobs:
     steps:
       # check out the repository
       - uses: actions/checkout@v3
-
-      - name: conventional changelog action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3.7.1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          version-file: ./pom.xml
-         # skip-version-file: 'true'
      
-      - name: Increment Version
+      - name: Update version and generate changelog
         run: |
-              mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit
-              git config user.name suren-khatana
-              git config user.email surendra.khatana@curity.io
-              git add .
-              git commit -m "updated version in pom.xml"
-              git push
-
-      - name: Create Git Tag
+           mvn versions:update-child-modules
+           mvn com.github.sdrss:conventional-changelog-maven-plugin:1.3.4:changelog
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+ 
+      - name: Commit changes
         run: |
-              export version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-              git config user.name suren-khatana
-              git config user.email surendra.khatana@curity.io
-              git tag -a $version -m "$version"
-              git push origin $version
+           git config user.name suren-khatana
+           git config user.email surendra.khatana@curity.io
+           git add pom.xml CHANGELOG.md
+           git commit -m "Update version and changelog"
+           git push
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch release version from POM file
         run: |
