@@ -62,15 +62,21 @@ jobs:
       - name: Fetch release version from POM file
         run: |
               echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+              echo "$RELEASE_VERSION" 
 
+      - name: Create Git Tag
+        run: |
+               export version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+                git config user.name suren-khatana
+                git config user.email surendra.khatana@curity.io
+                git tag -a $version -m "$version"
+                git push origin $version
       - name: create release
         uses: actions/create-release@v1
         if: steps.changelog.outputs.skipped == 'false'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-#          tag_name: ${{ steps.changelog.outputs.tag }}
-#          release_name: ${{ steps.changelog.outputs.tag }}
           tag_name: ${{ env.RELEASE_VERSION }}
           release_name: ${{ env.RELEASE_VERSION }}
           body: ${{ steps.changelog.outputs.clean_changelog }}
