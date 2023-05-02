@@ -55,6 +55,27 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v3.7.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+     
+      - name: Increment Version
+        run: |
+              ./mvnw build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit
+              git config user.name suren-khatana
+              git config user.email surendra.khatana@curity.io
+              git add .
+              git commit -m "updated version in pom.xml"
+              git push
+
+      - name: Create Git Tag
+        run: |
+              export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout')
+              git config user.name suren-khatana
+              git config user.email surendra.khatana@curity.io
+              git tag -a $version -m "$version"
+              git push origin $version
+
+      - name: set release version environment variable
+        run: |
+              echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: create release
         uses: actions/create-release@v1
@@ -62,8 +83,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.changelog.outputs.tag }}
-          release_name: ${{ steps.changelog.outputs.tag }}
+#          tag_name: ${{ steps.changelog.outputs.tag }}
+#          release_name: ${{ steps.changelog.outputs.tag }}
+          tag_name: ${{ env.RELEASE_VERSION }}
+          release_name: Release ${{ env.RELEASE_VERSION }}
           body: ${{ steps.changelog.outputs.clean_changelog }}
           draft: false
           prerelease: false
