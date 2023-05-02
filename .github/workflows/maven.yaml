@@ -2,10 +2,6 @@
 name: Build Curity Plugin
 
 on:
-  push:
-    branches: ['main']
-  pull_request:
-    branches: ['main']
   workflow_dispatch:
 
 jobs:
@@ -48,7 +44,8 @@ jobs:
 
     steps:
       # check out the repository
-      - uses: actions/checkout@v3
+      - name: Get code
+        uses: actions/checkout@v3
      
       - name: conventional changelog action
         id: changelog
