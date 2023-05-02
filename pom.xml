@@ -46,15 +46,6 @@
                     <incrementMinorVersionWhenCommitsSinceLastRelease>1</incrementMinorVersionWhenCommitsSinceLastRelease>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>com.github.sdrss</groupId>
-                <artifactId>conventional-changelog-maven-plugin</artifactId>
-                <version>1.3.4</version>
-                <configuration>
-                    <changelogOutputFile>CHANGELOG.md</changelogOutputFile>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
