@@ -54,7 +54,7 @@ jobs:
         run: |
            mvn versions:update-child-modules
            mvn com.github.sdrss:conventional-changelog-maven-plugin:1.3.4:changelog
-         env:
+        env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
  
       - name: Commit changes
@@ -64,7 +64,7 @@ jobs:
            git add pom.xml CHANGELOG.md
            git commit -m "Update version and changelog"
            git push
-         env:
+        env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch release version from POM file
