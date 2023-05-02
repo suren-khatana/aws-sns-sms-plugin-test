@@ -55,7 +55,7 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v3.7.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          version-file: ./pom.xml
+          skip-version-file: "true"
 
       - name: Fetch release version from POM file
         run: |
