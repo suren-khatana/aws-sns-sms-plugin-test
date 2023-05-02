@@ -55,6 +55,8 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v3.7.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          version-file: ./pom.xml
+         # skip-version-file: 'true'
      
       - name: Increment Version
         run: |
@@ -73,7 +75,7 @@ jobs:
               git tag -a $version -m "$version"
               git push origin $version
 
-      - name: set release version environment variable
+      - name: Fetch release version from POM file
         run: |
               echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
@@ -86,7 +88,7 @@ jobs:
 #          tag_name: ${{ steps.changelog.outputs.tag }}
 #          release_name: ${{ steps.changelog.outputs.tag }}
           tag_name: ${{ env.RELEASE_VERSION }}
-          release_name: Release ${{ env.RELEASE_VERSION }}
+          release_name: ${{ env.RELEASE_VERSION }}
           body: ${{ steps.changelog.outputs.clean_changelog }}
           draft: false
           prerelease: false
