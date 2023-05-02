@@ -67,7 +67,7 @@ jobs:
 
       - name: Create Git Tag
         run: |
-              export version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout')
+              export version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
               git config user.name suren-khatana
               git config user.email surendra.khatana@curity.io
               git tag -a $version -m "$version"
