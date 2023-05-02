@@ -1,4 +1,13 @@
-# 0.1.0 (2023-05-02)
+# [0.2.0](https://github.com/suren-khatana/aws-sns-sms-plugin-test/compare/v0.1.0...v0.2.0) (2023-05-02)
+
+
+### Features
+
+* new feature ([431040e](https://github.com/suren-khatana/aws-sns-sms-plugin-test/commit/431040edcd59ed4cee29d01160a660e5a0668487))
+
+
+
+# [0.1.0](https://github.com/suren-khatana/aws-sns-sms-plugin-test/compare/d1e01ddf247e581c441897c20ad2c2f8fb044461...v0.1.0) (2023-05-02)
 
 
 ### Bug Fixes
