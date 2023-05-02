@@ -50,22 +50,12 @@ jobs:
       # check out the repository
       - uses: actions/checkout@v3
      
-      - name: Update version and generate changelog
-        run: |
-           mvn versions:update-child-modules
-           mvn com.github.sdrss:conventional-changelog-maven-plugin:1.3.4:changelog
-        env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
- 
-      - name: Commit changes
-        run: |
-           git config user.name suren-khatana
-           git config user.email surendra.khatana@curity.io
-           git add pom.xml CHANGELOG.md
-           git commit -m "Update version and changelog"
-           git push
-        env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: conventional changelog action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3.7.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version-file: ./pom.xml
 
       - name: Fetch release version from POM file
         run: |

@@ -38,15 +38,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.8.1</version>
-                <configuration>
-                    <rulesUri>https://raw.githubusercontent.com/conventional-changelog/conventional-changelog/main/packages/conventional-changelog-angular/config/commit-regex.yml</rulesUri>
-                    <incrementMinorVersionWhenCommitsSinceLastRelease>1</incrementMinorVersionWhenCommitsSinceLastRelease>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
