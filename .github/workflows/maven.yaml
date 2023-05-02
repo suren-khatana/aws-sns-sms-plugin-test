@@ -54,6 +54,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           skip-version-file: "true"
           skip-tag: "true"
+          pre-changelog-generation: ./changelog.js
          # output-file: "false"
 
       - name: Fetch release version from POM file
