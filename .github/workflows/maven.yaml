@@ -54,7 +54,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           skip-version-file: "true"
           skip-tag: "true"
-          pre-changelog-generation: ./changelog.js
          # output-file: "false"
 
       - name: Fetch release version from POM file
@@ -71,6 +70,7 @@ jobs:
                 git push origin $version
 
       - name: create release
+        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -80,3 +80,13 @@ jobs:
           body: ${{ steps.changelog.outputs.clean_changelog }}
           draft: false
           prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            upload_url: ${{ steps.create_release.outputs.upload_url }} 
+            asset_path: staging
+            asset_name: plugin-jars
+            asset_content_type: application/zip
