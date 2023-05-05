@@ -38,7 +38,7 @@ jobs:
       - name: Upload plugin artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: plugin-artifacts
+          name: plugin-artifacts.zip
           path: plugin-artifacts.zip
 
   create_release:
@@ -63,7 +63,6 @@ jobs:
       - name: Fetch release version from POM file
         run: |
               echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-              echo $RELEASE_VERSION 
 
       - name: Create Git Tag
         run: |
@@ -88,7 +87,7 @@ jobs:
       - name: Download plugin artifacts
         uses: actions/download-artifact@v2
         with:
-            name: plugin-artifacts
+            name: plugin-artifacts.zip
 
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -98,5 +97,5 @@ jobs:
         with:
             upload_url: ${{ steps.create_release.outputs.upload_url }} 
             asset_path: ./plugin-artifacts.zip
-            asset_name: plugin-artifacts
+            asset_name: plugin-artifacts.zip
             asset_content_type: application/zip
