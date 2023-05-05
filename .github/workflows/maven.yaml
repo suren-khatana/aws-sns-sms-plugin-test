@@ -31,11 +31,15 @@ jobs:
       - name: Copy plugin jars
         run: mkdir staging && cp target/*.jar staging
 
+      - name: Build plugin artifacts zip  
+        run: |
+          zip --junk-paths plugin-artifacts staging/*
+
       - name: Upload plugin artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: plugin-jars
-          path: staging
+          name: plugin-artifacts
+          path: plugin-artifacts.zip
 
   create_release:
     runs-on: ubuntu-latest
@@ -80,6 +84,12 @@ jobs:
           body: ${{ steps.changelog.outputs.clean_changelog }}
           draft: false
           prerelease: false
+
+      - name: Download plugin artifacts
+        uses: actions/download-artifact@v2
+        with:
+            name: plugin-artifacts
+
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
@@ -87,6 +97,6 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
             upload_url: ${{ steps.create_release.outputs.upload_url }} 
-            asset_path: ./staging
-            asset_name: plugin-jars
+            asset_path: ./plugin-artifacts.zip
+            asset_name: plugin-artifacts
             asset_content_type: application/zip
