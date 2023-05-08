@@ -6,7 +6,7 @@
 
     <groupId>io.curity.identityserver.plugin</groupId>
     <artifactId>aws-sms-sender</artifactId>
-    <version>1.0.10</version>
+    <version>1.0.12</version>
     <packaging>jar</packaging>
 
     <name>Curity AWS SNS SMS Sender</name>

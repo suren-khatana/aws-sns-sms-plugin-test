@@ -57,7 +57,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
         #  skip-version-file: "true"
           skip-tag: "true"
-          create-summary: "true"
          # output-file: "false"
 
       - name: Fetch release version from POM file
