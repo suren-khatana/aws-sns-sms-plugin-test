@@ -8,7 +8,7 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
-      - name: Get code
+      - name: Download code
         uses: actions/checkout@v3
 
       - name: Set up JDK 17
@@ -18,7 +18,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Cache the Maven packages to speed up build
+      - name: Cache the maven packages to speed up build
         uses: actions/cache@v3
         with:
           path: ~/.m2
@@ -47,30 +47,35 @@ jobs:
     permissions: write-all
 
     steps:
-      # check out the repository
-      - name: Get code
+      - name: Download code
         uses: actions/checkout@v3
      
       - name: conventional changelog action
         id: changelog
-        uses: TriPSs/conventional-changelog-action@v3.7.1
+        uses: TriPSs/conventional-changelog-action@v3.18.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           skip-version-file: "true"
           skip-tag: "true"
+          create-summary: "true"
          # output-file: "false"
 
       - name: Fetch release version from POM file
         run: |
               echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
-      - name: Create Git Tag
+      - name: Create git tag
         run: |
                export version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
                 git config user.name suren-khatana
                 git config user.email surendra.khatana@curity.io
                 git tag -a $version -m "$version"
                 git push origin $version
+
+      - name: Download plugin artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: plugin-artifacts.zip          
 
       - name: create release
         id: create_release
@@ -83,11 +88,6 @@ jobs:
           body: ${{ steps.changelog.outputs.clean_changelog }}
           draft: false
           prerelease: false
-
-      - name: Download plugin artifacts
-        uses: actions/download-artifact@v2
-        with:
-            name: plugin-artifacts.zip
 
       - name: Upload Release Asset
         id: upload-release-asset 
