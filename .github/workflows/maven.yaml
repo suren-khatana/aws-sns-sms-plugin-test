@@ -7,7 +7,12 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+    env: 
+      IDSVR_LICENSE: ${{secrets.IDSVR_LICENSE}}
     steps:
+      - name: Read Idsvr License
+        run: echo $IDSVR_LICENSE
+
       - name: Download code
         uses: actions/checkout@v3
 
