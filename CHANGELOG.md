@@ -1,9 +1,10 @@
-# 0.3.0 (2023-05-08)
+# 1.1.0 (2023-05-10)
 
 
 ### Bug Fixes
 
 * added new feature ([2a05cde](https://github.com/suren-khatana/aws-sns-sms-plugin-test/commit/2a05cde94e82c240e074e4e84c573411fa2db735))
+* new updates ([91ed58e](https://github.com/suren-khatana/aws-sns-sms-plugin-test/commit/91ed58e3155b0d6605acfcb3adae326ba58959c6))
 * pom updates ([96ea1ea](https://github.com/suren-khatana/aws-sns-sms-plugin-test/commit/96ea1eaa1d62adf662d4a6de6b87421ce215a4e9))
 * pom updates again ([c63bb4c](https://github.com/suren-khatana/aws-sns-sms-plugin-test/commit/c63bb4c89c9e15d235819c54ceb214256e990681))
 * something ([d552bc5](https://github.com/suren-khatana/aws-sns-sms-plugin-test/commit/d552bc5a0d13cef219cb1831729b9a89c449c211))
